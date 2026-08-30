@@ -18,8 +18,8 @@ struct LayoutPreview {
         precondition(ResetDuration.text(until: nil, from: now) == PulseText.t("No data", "暂无数据"))
         print("Passed countdown boundary tests")
         var payload = WidgetPayload.placeholder
-        payload.fiveHourReset = now.addingTimeInterval(4 * 3_600 + 59 * 60)
-        payload.weeklyReset = now.addingTimeInterval(6 * 86_400 + 23 * 3_600 + 59 * 60)
+        payload.fiveHourReset = now.addingTimeInterval(17_940) // 4h 59m
+        payload.weeklyReset = now.addingTimeInterval(604_740) // 6d 23h 59m
         payload.fiveHourUsed = 100
         payload.weeklyUsed = 100
         payload.updatedAt = now
