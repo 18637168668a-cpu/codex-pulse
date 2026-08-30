@@ -1,0 +1,162 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D10000000000000000000001 /* CodexPulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* CodexPulseApp.swift */; };
+		D10000000000000000000002 /* CodexPulseWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000001 /* CodexPulseWidget.swift */; };
+		D10000000000000000000003 /* CodexPulseWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C10000000000000000000002 /* CodexPulseWidgetExtension.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		G10000000000000000000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA0000000000000000000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F10000000000000000000002;
+			remoteInfo = CodexPulseWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E10000000000000000000004 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (D10000000000000000000003 /* CodexPulseWidgetExtension.appex in Embed App Extensions */, );
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A10000000000000000000001 /* CodexPulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodexPulseApp.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000000000000000000003 /* CodexPulse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodexPulse.entitlements; sourceTree = "<group>"; };
+		B10000000000000000000001 /* CodexPulseWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodexPulseWidget.swift; sourceTree = "<group>"; };
+		B10000000000000000000002 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10000000000000000000003 /* CodexPulseWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CodexPulseWidget.entitlements; sourceTree = "<group>"; };
+		C10000000000000000000001 /* Codex Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Codex Pulse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C10000000000000000000002 /* CodexPulseWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CodexPulseWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E10000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		E20000000000000000000002 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0100000000000000000000 = {
+			isa = PBXGroup;
+			children = (
+				AA0100000000000000000002 /* CodexPulse */,
+				AA0100000000000000000003 /* CodexPulseWidget */,
+				AA0100000000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA0100000000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (C10000000000000000000001 /* Codex Pulse.app */, C10000000000000000000002 /* CodexPulseWidgetExtension.appex */, );
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA0100000000000000000002 /* CodexPulse */ = {
+			isa = PBXGroup;
+			children = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000003, );
+			path = CodexPulse;
+			sourceTree = "<group>";
+		};
+		AA0100000000000000000003 /* CodexPulseWidget */ = {
+			isa = PBXGroup;
+			children = (B10000000000000000000001, B10000000000000000000002, B10000000000000000000003, );
+			path = CodexPulseWidget;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F10000000000000000000001 /* CodexPulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = I11000000000000000000000;
+			buildPhases = (E10000000000000000000001, E10000000000000000000002, E10000000000000000000003, E10000000000000000000004, );
+			buildRules = ();
+			dependencies = (G10000000000000000000002, );
+			name = CodexPulse;
+			productName = CodexPulse;
+			productReference = C10000000000000000000001;
+			productType = "com.apple.product-type.application";
+		};
+		F10000000000000000000002 /* CodexPulseWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = I12000000000000000000000;
+			buildPhases = (E20000000000000000000001, E20000000000000000000002, E20000000000000000000003, );
+			buildRules = ();
+			dependencies = ();
+			name = CodexPulseWidgetExtension;
+			productName = CodexPulseWidgetExtension;
+			productReference = C10000000000000000000002;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA0000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					F10000000000000000000001 = {CreatedOnToolsVersion = 26.4; };
+					F10000000000000000000002 = {CreatedOnToolsVersion = 26.4; };
+				};
+			};
+			buildConfigurationList = I10000000000000000000000;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base, zh-Hans, );
+			mainGroup = AA0100000000000000000000;
+			productRefGroup = AA0100000000000000000001;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (F10000000000000000000001, F10000000000000000000002, );
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E10000000000000000000003 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		E20000000000000000000003 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E10000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (D10000000000000000000001, ); runOnlyForDeploymentPostprocessing = 0; };
+		E20000000000000000000001 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (D10000000000000000000002, ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		G10000000000000000000002 /* PBXTargetDependency */ = {isa = PBXTargetDependency; target = F10000000000000000000002; targetProxy = G10000000000000000000001; };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		H10000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_OPTIMIZATION_LEVEL = 0; MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+		H10000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; MACOSX_DEPLOYMENT_TARGET = 14.0; SDKROOT = macosx; SWIFT_COMPILATION_MODE = wholemodule; }; name = Release; };
+		H11000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = CodexPulse/CodexPulse.entitlements; CODE_SIGN_IDENTITY = "Apple Development"; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_HARDENED_RUNTIME = YES; INFOPLIST_FILE = CodexPulse/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = io.github.codexpulse.app; PRODUCT_NAME = "Codex Pulse"; SDKROOT = macosx; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Debug; };
+		H11000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGN_ENTITLEMENTS = CodexPulse/CodexPulse.entitlements; CODE_SIGN_IDENTITY = "Apple Development"; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_HARDENED_RUNTIME = YES; INFOPLIST_FILE = CodexPulse/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = io.github.codexpulse.app; PRODUCT_NAME = "Codex Pulse"; SDKROOT = macosx; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Release; };
+		H12000000000000000000001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = CodexPulseWidget/CodexPulseWidget.entitlements; CODE_SIGN_IDENTITY = "Apple Development"; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_HARDENED_RUNTIME = YES; INFOPLIST_FILE = CodexPulseWidget/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = io.github.codexpulse.app.widget; PRODUCT_NAME = CodexPulseWidgetExtension; SDKROOT = macosx; SKIP_INSTALL = YES; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Debug; };
+		H12000000000000000000002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {APPLICATION_EXTENSION_API_ONLY = YES; CODE_SIGN_ENTITLEMENTS = CodexPulseWidget/CodexPulseWidget.entitlements; CODE_SIGN_IDENTITY = "Apple Development"; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; ENABLE_HARDENED_RUNTIME = YES; INFOPLIST_FILE = CodexPulseWidget/Info.plist; LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../../../../Frameworks"; MACOSX_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 0.1.0; PRODUCT_BUNDLE_IDENTIFIER = io.github.codexpulse.app.widget; PRODUCT_NAME = CodexPulseWidgetExtension; SDKROOT = macosx; SKIP_INSTALL = YES; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		I10000000000000000000000 = {isa = XCConfigurationList; buildConfigurations = (H10000000000000000000001, H10000000000000000000002, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		I11000000000000000000000 = {isa = XCConfigurationList; buildConfigurations = (H11000000000000000000001, H11000000000000000000002, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		I12000000000000000000000 = {isa = XCConfigurationList; buildConfigurations = (H12000000000000000000001, H12000000000000000000002, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = AA0000000000000000000001 /* Project object */;
+}
