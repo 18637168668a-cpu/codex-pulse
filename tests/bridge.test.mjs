@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { request as httpRequest } from 'node:http';
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { CodexBridge, normalizeUsage } from '../bridge/codex.mjs';
@@ -112,8 +112,9 @@ test('bridge permits only initialization and read, and handles a real stdio hand
 const rl = require('node:readline').createInterface({input:process.stdin});
 rl.on('line', line => { const m=JSON.parse(line); if(m.id) process.stdout.write(JSON.stringify({id:m.id,result:m.method==='initialize'?{}:{rateLimits:{primary:{usedPercent:7,windowDurationMins:300,resetsAt:1900000000}}}})+'\\n'); });
 `, { mode: 0o700 });
-  const bridge = new CodexBridge({ binary: fixture, timeout: 1000 });
-  t.after(() => bridge.stop());
+  // Allow cold process startup under concurrent builds; timeout behavior is tested separately.
+  const bridge = new CodexBridge({ binary: fixture, timeout: 5000 });
+  t.after(() => { bridge.stop(); rmSync(folder, { recursive: true, force: true }); });
   await assert.rejects(bridge.send('thread/start'), /not allowed/);
   assert.equal((await bridge.rateLimits()).rateLimits.primary.usedPercent, 7);
 });
@@ -122,4 +123,16 @@ test('missing Codex binary rejects cleanly and allows a later retry', async () =
   await assert.rejects(bridge.rateLimits());
   await assert.rejects(bridge.rateLimits());
   bridge.stop();
+});
+
+test('a silent Codex process times out, stops and can be retried', async t => {
+  const folder = mkdtempSync(join(tmpdir(), 'pulse-timeout-'));
+  const fixture = join(folder, 'silent-codex');
+  writeFileSync(fixture, '#!/usr/bin/env node\nprocess.stdin.resume();\n', { mode: 0o700 });
+  const bridge = new CodexBridge({ binary: fixture, timeout: 100 });
+  t.after(() => { bridge.stop(); rmSync(folder, { recursive: true, force: true }); });
+  await assert.rejects(bridge.rateLimits(), /timed out/);
+  assert.equal(bridge.child, null);
+  await assert.rejects(bridge.rateLimits(), /timed out/);
+  assert.equal(bridge.child, null);
 });

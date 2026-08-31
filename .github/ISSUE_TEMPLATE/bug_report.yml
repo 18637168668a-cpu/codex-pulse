@@ -9,7 +9,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: macOS, Apple Silicon/Intel, Xcode, Node and Codex versions
+      description: macOS, Apple Silicon/Intel, app version, download or source install, Codex version (Xcode/Node versions only for source installs)
     validations:
       required: true
   - type: textarea

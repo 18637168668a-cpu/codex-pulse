@@ -33,6 +33,8 @@ jobs:
           [ "$TAG" = "v$VERSION" ] || { echo "Tag $TAG does not match package version $VERSION" >&2; exit 1; }
           [ "$TAG" = "$(git describe --exact-match --tags HEAD)" ] || { echo 'Workflow ref does not point at the checked-out tag.' >&2; exit 1; }
       - run: bash scripts/package-release.sh
+      - name: Test the shipped Node runtime
+        run: '"build/Codex Pulse.app/Contents/Resources/runtime/node" --test tests/*.test.mjs'
       - name: Create draft prerelease
         env:
           GH_TOKEN: ${{ github.token }}
