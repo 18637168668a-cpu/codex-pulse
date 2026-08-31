@@ -40,5 +40,9 @@ lipo "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex/Contents/MacOS/$WIDG
 mkdir -p "$ROOT/build"
 rm -rf "$ROOT/build/Codex Pulse.app"
 ditto --norsrc --noextattr "$APP" "$ROOT/build/Codex Pulse.app"
+# File-provider folders can add Finder metadata during copy. This is only our
+# freshly generated build output, never a downloaded app or a user's installation.
+xattr -cr "$ROOT/build/Codex Pulse.app"
+codesign --verify --deep --strict "$ROOT/build/Codex Pulse.app"
 if [ "$BUNDLE_RUNTIME" -eq 1 ]; then echo "Built universal ad-hoc preview with bundled Node: $ROOT/build/Codex Pulse.app"; else echo "Built universal ad-hoc source preview: $ROOT/build/Codex Pulse.app"; fi
 echo 'This build is not Developer ID signed or notarized.'
