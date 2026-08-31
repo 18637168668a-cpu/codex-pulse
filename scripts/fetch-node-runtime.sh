@@ -16,7 +16,7 @@ tar -xzf "$CACHE/node-v$NODE_VERSION-darwin-arm64.tar.gz" -C "$WORK"; tar -xzf "
 mkdir -p "$OUTPUT"
 lipo -create "$WORK/node-v$NODE_VERSION-darwin-arm64/bin/node" "$WORK/node-v$NODE_VERSION-darwin-x64/bin/node" -output "$OUTPUT/node"
 chmod 755 "$OUTPUT/node"; cp "$WORK/node-v$NODE_VERSION-darwin-arm64/LICENSE" "$OUTPUT/NODE-LICENSE.txt"
-lipo -verify_arch arm64 x86_64 "$OUTPUT/node"
+lipo "$OUTPUT/node" -verify_arch arm64 x86_64
 codesign --force --timestamp=none --options runtime --sign - --entitlements "$ROOT/scripts/node-runtime.entitlements.plist" "$OUTPUT/node"
 [ "$("$OUTPUT/node" --version)" = "v$NODE_VERSION" ]
 echo "Bundled official Node.js v$NODE_VERSION runtime at $OUTPUT/node"

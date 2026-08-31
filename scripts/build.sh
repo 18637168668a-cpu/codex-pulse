@@ -31,12 +31,12 @@ if [ -f "$APP/Contents/Resources/runtime/node" ]; then codesign --force --timest
 codesign --force --timestamp=none --options runtime --sign - --entitlements "$ROOT/native/CodexPulseWidget/CodexPulseWidget.entitlements" "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex"
 codesign --force --timestamp=none --options runtime --sign - --entitlements "$ROOT/native/CodexPulse/CodexPulse.entitlements" "$APP"
 codesign --verify --deep --strict "$APP"
-lipo -verify_arch arm64 x86_64 "$APP/Contents/MacOS/Codex Pulse"
+lipo "$APP/Contents/MacOS/Codex Pulse" -verify_arch arm64 x86_64
 WIDGET_EXECUTABLE="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex/Contents/Info.plist")"
-lipo -verify_arch arm64 x86_64 "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex/Contents/MacOS/$WIDGET_EXECUTABLE"
+lipo "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex/Contents/MacOS/$WIDGET_EXECUTABLE" -verify_arch arm64 x86_64
 [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Contents/Info.plist")" = "$VERSION" ]
 [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Contents/PlugIns/CodexPulseWidgetExtension.appex/Contents/Info.plist")" = "$VERSION" ]
-[ "$BUNDLE_RUNTIME" -eq 0 ] || lipo -verify_arch arm64 x86_64 "$APP/Contents/Resources/runtime/node"
+[ "$BUNDLE_RUNTIME" -eq 0 ] || lipo "$APP/Contents/Resources/runtime/node" -verify_arch arm64 x86_64
 mkdir -p "$ROOT/build"
 rm -rf "$ROOT/build/Codex Pulse.app"
 ditto --norsrc --noextattr "$APP" "$ROOT/build/Codex Pulse.app"

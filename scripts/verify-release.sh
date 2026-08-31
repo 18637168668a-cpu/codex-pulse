@@ -17,11 +17,11 @@ verify_app() {
   [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$plist")" = "$VERSION" ]
   widget="$candidate/Contents/PlugIns/CodexPulseWidgetExtension.appex"
   [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$widget/Contents/Info.plist")" = "$VERSION" ]
-  codesign --verify --deep --strict "$candidate"; lipo -verify_arch arm64 x86_64 "$candidate/Contents/MacOS/Codex Pulse"
+  codesign --verify --deep --strict "$candidate"; lipo "$candidate/Contents/MacOS/Codex Pulse" -verify_arch arm64 x86_64
   widget_executable="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$widget/Contents/Info.plist")"
-  lipo -verify_arch arm64 x86_64 "$widget/Contents/MacOS/$widget_executable"
+  lipo "$widget/Contents/MacOS/$widget_executable" -verify_arch arm64 x86_64
   for path in "$candidate/Contents/Resources/bridge" "$candidate/Contents/Resources/scripts/manage.mjs" "$candidate/Contents/Resources/scripts/installer.mjs" "$candidate/Contents/Resources/package.json" "$candidate/Contents/Resources/LICENSE.txt" "$runtime" "$candidate/Contents/Resources/runtime/NODE-LICENSE.txt"; do [ -e "$path" ] || { echo "Missing bundled resource: $path" >&2; return 1; }; done
-  lipo -verify_arch arm64 x86_64 "$runtime"; "$runtime" --version | grep -qx 'v22.23.2'
+  lipo "$runtime" -verify_arch arm64 x86_64; "$runtime" --version | grep -qx 'v22.23.2'
   entitlement_is_true "$runtime" 'com.apple.security.cs.allow-jit'
   entitlement_is_true "$widget" 'com.apple.security.app-sandbox'
   entitlement_is_true "$widget" 'com.apple.security.network.client'
