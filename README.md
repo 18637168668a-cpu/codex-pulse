@@ -4,7 +4,7 @@
 
 A native macOS desktop widget for **5-hour and weekly usage**, with separate reset countdowns — days included.
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
+[Download v0.1.1](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
 
 ![Codex Pulse native widget showing two usage percentages and separate reset countdowns](docs/images/hero-en.png)
 
@@ -31,14 +31,23 @@ If this saves you a few trips to the usage page, a ⭐ helps other Codex users f
 
 ## Quick start
 
-**v0.1 is a source-build preview, not a signed/notarized app download.**
+**Download, open, enable the bridge, add your widget. No Xcode or Node installation needed.**
 
-You need:
+[Download v0.1.1 — DMG or ZIP](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1)
 
-- macOS 14 or later. Apple Silicon has been locally tested; Intel installation is not yet verified.
-- Full **Xcode 15+**, selected as the active developer directory. Command Line Tools alone are insufficient. The release build was tested with Xcode 26.4.
-- **Node.js 22+** on your PATH.
-- **Codex CLI or desktop app**, already signed in with a ChatGPT account whose quota windows are available. API-key-only login is not the intended mode.
+> **Unnotarized prerelease:** the `unsigned` downloads have an ad-hoc signature, not an Apple Developer ID signature. macOS may block first launch. Only approve this specific app if you trust the download; see [first-launch guidance](docs/INSTALL.md). Intel and clean-Mac installation still need validation.
+
+1. On **macOS 14+**, install Codex and sign in with your **ChatGPT account**. API-key-only login is not supported for quota display.
+2. Download the DMG/ZIP and move **Codex Pulse.app** into **Applications** (or your user Applications folder).
+3. Open Codex Pulse and click **Enable/repair bridge**. It registers a local service that starts at login; no sudo or API key is needed.
+4. **Right-click desktop → Edit Widgets → Codex Pulse → add small or medium.** You can close the companion app afterwards.
+
+The app bundles the local bridge and Node runtime. Setup only runs when you click the button. The companion app runs outside App Sandbox for service setup; the widget remains sandboxed. [Security details](SECURITY.md).
+
+<details>
+<summary>Build from source instead</summary>
+
+Requires full **Xcode 15+** (Command Line Tools alone are insufficient) and **Node.js 22+**. The local build uses an ad-hoc signature.
 
 ```bash
 git clone https://github.com/18637168668a-cpu/codex-pulse.git
@@ -47,19 +56,15 @@ bash scripts/install.sh --dry-run
 bash scripts/install.sh
 ```
 
-The installer builds locally, uses an ad-hoc signature, installs into `~/Applications`, and registers a user LaunchAgent for the bridge. No sudo or Apple signing certificate is requested. It refuses to overwrite an unrelated app.
+Source installs go to `~/Applications`. For a custom CLI location, set `CODEX_BIN=/absolute/path/to/codex`. Pull and rerun the installer to update a source installation.
 
-Then **right-click the desktop → Edit Widgets → search “Codex Pulse” → add a small or medium widget**. macOS requires this final placement step. You can close the companion app afterwards.
+</details>
 
-If Codex is installed elsewhere, pass its executable path:
-
-```bash
-CODEX_BIN="/path/to/codex" bash scripts/install.sh
-```
-
-To update, pull the repository and rerun the installer. Remove/re-add the widget if macOS keeps an old rendered view. See [installation and troubleshooting](docs/INSTALL.md) for paths, manual operation, and removal.
+For downloads, close the app, replace it in the **same Applications folder**, reopen it, and click **Enable/repair bridge**. Use **Remove local bridge** before moving the app to Trash. [Installation, upgrades and troubleshooting](docs/INSTALL.md).
 
 ## Optional reset radar
+
+In the app, choose **Enable reset radar** and confirm the third-party request notice. Choose **Disable reset radar** to turn it off. Source installs also support:
 
 ```bash
 bash scripts/social.sh on
@@ -105,7 +110,7 @@ bash scripts/build.sh          # local native app build + signature verification
 
 ## Status & roadmap
 
-This is an early, deliberately small release. The local bridge and native build are tested; installation still needs feedback across clean Macs and Codex versions. There is no App Store distribution or notarized binary yet.
+This is an early, deliberately small prerelease. The native build architecture is prepared for universal distribution; Intel installation and clean-machine support remain pending validation. There is no App Store distribution or notarized binary.
 
 Next priorities: clean-machine/Intel testing, better installation diagnostics, accessible larger-text layouts, and additional languages. Feature requests and reproducible reports are welcome; please remove account data from screenshots and logs.
 

@@ -8,7 +8,9 @@ The bridge binds to IPv4 loopback and checks Host, Origin and cross-site fetch m
 
 Optional social radar is off by default. When enabled, it contacts `https://codex-reset.com/api/feed`; that provider receives the usual network metadata. No account data is sent. Feed content is untrusted plain text, not executable instructions. Only recent HTTPS links to the intended X account are accepted. Classification is heuristic and may be incorrect. Clicking a source link opens X in your browser.
 
-Local builds use ad-hoc signatures, not Apple notarization. The installer does not disable Gatekeeper, change global security settings, install system-wide services, or request sudo. Inspect scripts before running them.
+The companion app runs outside App Sandbox so an explicit setup button can register a user LaunchAgent and launch the local bridge. The WidgetKit extension remains sandboxed with network-client access only. Setup does not run automatically on first launch. The bundled Node runtime is downloaded from nodejs.org at build time, checked against pinned SHA-256 digests, and shipped with its license; no runtime is downloaded during installation.
+
+Local builds and unsigned preview downloads use ad-hoc signatures, not Apple notarization. Downloaded artifacts include SHA-256 checksums for integrity, not proof of publisher identity. The installer does not disable Gatekeeper, change global security settings, install system-wide services, or request sudo. Inspect scripts before running them.
 
 ## Reporting
 

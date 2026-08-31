@@ -4,7 +4,7 @@
 
 原生 macOS 桌面小组件：并排展示 **5 小时已用量、本周已用量**，分别显示重置倒计时，超过一天明确显示天数。
 
-[English](README.md) · [安装与排查](docs/INSTALL.md) · [隐私与安全](SECURITY.md)
+[下载 v0.1.1](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1) · [English](README.md) · [安装与排查](docs/INSTALL.md) · [隐私与安全](SECURITY.md)
 
 ![中文原生组件，两个已用百分比及带天数的重置倒计时](docs/images/medium-zh.png)
 
@@ -24,9 +24,23 @@
 
 ## 安装
 
-**v0.1 是源码构建预览版，不是签名公证好的即装即用 App。**
+**下载 → 打开 → 启用本机服务 → 添加组件。无需另装 Xcode 或 Node。**
 
-需要 macOS 14+、完整 Xcode 15+、Node.js 22+，以及已通过 ChatGPT 账号登录的 Codex CLI 或桌面 App。只安装 Command Line Tools 不够。已在 Apple Silicon / Xcode 26.4 本机验证构建；Intel 和其他干净机器仍需要测试反馈。
+[下载 v0.1.1（DMG / ZIP）](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1)
+
+> **这是未公证的预发布版。** 文件名中的 `unsigned` 表示没有 Apple Developer ID 签名，仅有临时签名。macOS 可能阻止首次打开；仅在信任下载来源时按[安装指南](docs/INSTALL.md)批准此应用。Intel 实机和全新 Mac 安装仍待验证。
+
+1. 使用 **macOS 14+**，先在 Codex 中以 **ChatGPT 账号**登录；仅 API Key 登录无法用于本组件的额度显示。
+2. 下载 DMG/ZIP，将 **Codex Pulse.app** 放入“应用程序”（`/Applications` 或 `~/Applications`）。
+3. 打开 App，点击 **启用／修复本机服务**。服务会在登录时启动，无需 sudo 或额外 API Key。
+4. **右键桌面 → 编辑小组件 → Codex Pulse → 添加小号或中号**。之后可关闭主应用。
+
+内置 Node 运行时和只读服务。仅在点击按钮后配置服务；主应用因需配置登录服务不使用沙盒，WidgetKit 扩展仍保留沙盒。[隐私与安全](SECURITY.md)。
+
+<details>
+<summary>从源码安装</summary>
+
+需要完整 **Xcode 15+** 和 **Node.js 22+**；只有 Command Line Tools 不够。
 
 ```bash
 git clone https://github.com/18637168668a-cpu/codex-pulse.git
@@ -35,11 +49,15 @@ bash scripts/install.sh --dry-run
 bash scripts/install.sh
 ```
 
-脚本本机构建并临时签名，安装到 `~/Applications`，注册登录时启动的本机后台服务。无需 sudo，不要求你的 Apple 开发证书，也不会覆盖不同标识的同名 App。
+源码安装到 `~/Applications`，使用临时签名，不要求 Apple 开发证书。更新时拉取代码并重新运行安装脚本。
 
-最后：**右键桌面 → 编辑小组件 → 搜索 Codex Pulse → 添加小号或中号**。位置需要通过系统界面添加，之后可以关闭主应用。
+</details>
+
+下载版更新：先关闭 App，在**原应用目录**替换后重新打开并点击 **启用／修复本机服务**。卸载时先点击 **移除本机服务**，再将 App 移到废纸篓，最后手动移除桌面组件。
 
 ### 可选雷达
+
+在 App 中点击 **开启重置雷达**并确认第三方请求提示，可随时点击 **关闭重置雷达**。源码版也支持：
 
 ```bash
 bash scripts/social.sh on
@@ -48,7 +66,7 @@ bash scripts/social.sh off
 
 开启后访问第三方公开源 [codex-reset.com](https://codex-reset.com)，它会收到你的 IP 等普通 HTTPS 请求信息，但不会收到用量、登录凭证或聊天。只分析最近七天、链接指向 @thsottiaux 的动态。规则可能误判、漏报，第三方源也可能延迟或停止；所有判断均不应视为官方确认。
 
-### 卸载
+### 源码版卸载
 
 ```bash
 bash scripts/uninstall.sh

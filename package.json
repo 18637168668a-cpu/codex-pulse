@@ -1,6 +1,6 @@
 {
   "name": "codex-pulse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Native macOS widgets for Codex usage and reset countdowns, with a local read-only bridge.",
   "type": "module",

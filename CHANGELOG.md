@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — downloadable unnotarized prerelease
+
+- Universal macOS 14+ DMG and ZIP distribution with bundled Node.js and local bridge.
+- GUI actions: **Enable/repair bridge**, **Remove local bridge**, and explicit reset radar enable/disable controls (radar off by default).
+- Requires Codex CLI or desktop app already signed in with a ChatGPT account.
+- AD HOC signed and unnotarized; prerelease only. Intel installation, clean-machine support, and full release verification remain pending.
+
 ## 0.1.0 — source preview
 
 - Native small and medium macOS widgets, with English and Simplified Chinese.

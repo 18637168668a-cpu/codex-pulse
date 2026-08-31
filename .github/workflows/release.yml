@@ -1,0 +1,42 @@
+name: Release preview
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: macos-15
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: bash scripts/test-native.sh
+      - run: node scripts/check-release.mjs
+      - name: Validate release tag
+        run: |
+          [ "$GITHUB_REF_TYPE" = tag ] || { echo 'Run this workflow from a tag.' >&2; exit 1; }
+          TAG="$GITHUB_REF_NAME"
+          VERSION="$(node -p "require('./package.json').version")"
+          [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Invalid release tag: $TAG" >&2; exit 1; }
+          [ "$TAG" = "v$VERSION" ] || { echo "Tag $TAG does not match package version $VERSION" >&2; exit 1; }
+          [ "$TAG" = "$(git describe --exact-match --tags HEAD)" ] || { echo 'Workflow ref does not point at the checked-out tag.' >&2; exit 1; }
+      - run: bash scripts/package-release.sh
+      - name: Create draft prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$GITHUB_REF_NAME"
+          VERSION="$(node -p "require('./package.json').version")"
+          gh release create "$TAG" dist/Codex-Pulse-"$VERSION"-universal-unsigned.dmg dist/Codex-Pulse-"$VERSION"-universal-unsigned.zip dist/SHA256SUMS.txt --draft --prerelease --title "Codex Pulse $VERSION" --notes-file "docs/releases/v$VERSION.md"
