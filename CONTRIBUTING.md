@@ -15,3 +15,7 @@ Before opening a pull request:
 Please preserve the read-only boundary, explicit missing/stale states, optional social feed, and small dependency surface. No credential scraping, automatic quota resets, account switching, or fake engagement features.
 
 Good first contributions: clean-machine setup feedback, Intel build/install verification, accessible text sizing, and additional languages. Contributions are licensed under the repository's MIT license.
+
+## Release changes
+
+For packaging, signing and draft prereleases, follow [RELEASING.md](docs/RELEASING.md). CI tests the bundled runtime and verifies ZIP/DMG contents as well as the native build. Keep unsigned preview limitations explicit; do not claim clean-Mac or Intel execution results without recording evidence.

@@ -1,12 +1,15 @@
 import { spawn } from 'node:child_process';
 import { createInterface } from 'node:readline';
 import { existsSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
 
 export function codexBinary() {
   if (process.env.CODEX_BIN) return process.env.CODEX_BIN;
   return [
     '/Applications/Codex.app/Contents/Resources/codex',
     '/Applications/ChatGPT.app/Contents/Resources/codex',
+    join(homedir(), 'Applications/Codex.app/Contents/Resources/codex'),
   ].find(existsSync) || 'codex';
 }
 
@@ -48,7 +51,7 @@ export class CodexBridge {
     child.once('error', failed);
     child.once('exit', failed);
     this.ready = this.send('initialize', {
-      clientInfo: { name: 'codex-pulse', title: 'Codex Pulse', version: '0.1.0' },
+      clientInfo: { name: 'codex-pulse', title: 'Codex Pulse', version: '0.1.1' },
     }).then(() => {
       child.stdin.write(JSON.stringify({ method: 'initialized' }) + '\n');
     }).catch(error => { this.stop(); throw error; });

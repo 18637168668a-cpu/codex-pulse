@@ -107,7 +107,7 @@ enum PulseLoader {
             if !feed.enabled {
                 payload.signalLabel = PulseText.t("Radar off", "雷达已关闭")
                 payload.signalText = PulseText.t("Optional reset radar. Your quota monitor works without it.", "可选重置信号雷达。不影响额度监控。")
-                payload.signalReason = PulseText.t("Enable with: bash scripts/social.sh on", "启用：bash scripts/social.sh on")
+                payload.signalReason = PulseText.t("Enable reset radar in the Codex Pulse app.", "在 Codex Pulse 应用中开启重置雷达。")
             } else if let signal = feed.signals?.first {
                 payload.signalLabel = feed.stale ? PulseText.t("Radar cached", "雷达缓存") : (signal.resetAnalysis.level == "reported" ? PulseText.t("Reset reported", "动态称已重置") : PulseText.t("Possible reset", "可能涉及重置"))
                 payload.signalText = signal.text
