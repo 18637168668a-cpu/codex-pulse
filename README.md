@@ -4,13 +4,13 @@
 
 A native macOS desktop widget for **5-hour and weekly usage**, with separate reset countdowns — days included.
 
-[Download v0.1.1](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
+[Download v0.1.1](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.1) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
 
 ![Codex Pulse native widget showing two usage percentages and separate reset countdowns](docs/images/hero-en.png)
 
 *Rendered from the actual SwiftUI views. All numbers and posts above are synthetic demo data.*
 
-[![CI](https://github.com/18637168668a-cpu/codex-pulse/actions/workflows/ci.yml/badge.svg)](https://github.com/18637168668a-cpu/codex-pulse/actions/workflows/ci.yml)
+[![CI](https://github.com/matyang-dev/codex-pulse/actions/workflows/ci.yml/badge.svg)](https://github.com/matyang-dev/codex-pulse/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![macOS 14+](https://img.shields.io/badge/macOS-14%2B-black)
 
@@ -34,7 +34,7 @@ If this saves you a few trips to the usage page, a ⭐ helps other Codex users f
 
 **Download, open, enable the bridge, add your widget. No Xcode or Node installation needed.**
 
-[Download v0.1.1 — DMG or ZIP](https://github.com/18637168668a-cpu/codex-pulse/releases/tag/v0.1.1)
+[Download v0.1.1 — DMG or ZIP](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.1)
 
 > **Unnotarized prerelease:** the `unsigned` downloads have an ad-hoc signature, not an Apple Developer ID signature. macOS may block first launch. Only approve this specific app if you trust the download; see [first-launch guidance](docs/INSTALL.md). Intel and clean-Mac installation still need validation.
 
@@ -51,7 +51,7 @@ The app bundles the local bridge and Node runtime. Setup only runs when you clic
 Requires full **Xcode 15+** (Command Line Tools alone are insufficient) and **Node.js 22+**. The local build uses an ad-hoc signature.
 
 ```bash
-git clone https://github.com/18637168668a-cpu/codex-pulse.git
+git clone https://github.com/matyang-dev/codex-pulse.git
 cd codex-pulse
 bash scripts/install.sh --dry-run
 bash scripts/install.sh

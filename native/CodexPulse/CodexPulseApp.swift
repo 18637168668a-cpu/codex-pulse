@@ -68,7 +68,7 @@ struct ContentView: View {
             HStack {
                 Button(tr("Choose Codex…", "选择 Codex 程序…")) { chooseCodex() }.disabled(busy)
                 Button(tr("Setup & help", "安装与帮助")) {
-                    NSWorkspace.shared.open(URL(string: "https://github.com/18637168668a-cpu/codex-pulse/blob/main/docs/INSTALL.md")!)
+                    NSWorkspace.shared.open(URL(string: "https://github.com/matyang-dev/codex-pulse/blob/main/docs/INSTALL.md")!)
                 }
             }
             Text(tr("Both percentages show USED quota. Read-only · no telemetry. macOS schedules widget refreshes. You may close this setup window; keep the app running to show the CP menu meter.", "百分比均为已用额度。只读、无遥测；刷新由 macOS 调度。可关闭设置窗口；保持 App 运行即可显示 CP 菜单栏用量。"))
@@ -291,7 +291,7 @@ enum QuotaMeterColor {
 
     @objc private func refreshFromMenu() { Task { await refreshUsage() } }
     @objc private func openHelp() {
-        NSWorkspace.shared.open(URL(string: "https://github.com/18637168668a-cpu/codex-pulse/blob/main/docs/INSTALL.md")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/matyang-dev/codex-pulse/blob/main/docs/INSTALL.md")!)
     }
     @objc private func quit() { NSApp.terminate(nil) }
 }
