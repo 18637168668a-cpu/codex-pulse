@@ -9,6 +9,7 @@ private func tr(_ en: String, _ zh: String) -> String {
 #if !SETUP_PREVIEW
 @main
 struct CodexPulseApp: App {
+    @NSApplicationDelegateAdaptor(PulseMenuDelegate.self) private var menuDelegate
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -70,7 +71,7 @@ struct ContentView: View {
                     NSWorkspace.shared.open(URL(string: "https://github.com/18637168668a-cpu/codex-pulse/blob/main/docs/INSTALL.md")!)
                 }
             }
-            Text(tr("Both percentages show USED quota. Read-only · no telemetry. macOS schedules widget refreshes. You can close this app after setup.", "百分比均为已用额度。只读、无遥测；刷新由 macOS 调度。设置后可关闭主应用。"))
+            Text(tr("Both percentages show USED quota. Read-only · no telemetry. macOS schedules widget refreshes. You may close this setup window; keep the app running to show the CP menu meter.", "百分比均为已用额度。只读、无遥测；刷新由 macOS 调度。可关闭设置窗口；保持 App 运行即可显示 CP 菜单栏用量。"))
                 .font(.caption2).foregroundStyle(.secondary)
         }
         .padding(26).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -174,4 +175,123 @@ private enum SetupRunner {
             return tr("Could not start setup. Re-download the app and check the installation guide.", "无法启动设置。请重新下载应用并查看安装说明。")
         }
     }
+}
+
+
+struct QuotaMeterState {
+    var fiveHour: Double?
+    var weekly: Double?
+    var stale = false
+
+    static func decode(_ data: Data) throws -> QuotaMeterState {
+        let response = try JSONSerialization.jsonObject(with: data) as? [String: Any] ?? [:]
+        let byID = response["rateLimitsByLimitId"] as? [String: [String: Any]]
+        let bucket = byID?["codex"] ?? response["rateLimits"] as? [String: Any] ?? [:]
+        let windows = [bucket["primary"], bucket["secondary"]].compactMap { $0 as? [String: Any] }
+        func used(_ duration: Int) -> Double? {
+            guard let window = windows.first(where: { ($0["windowDurationMins"] as? Int) == duration }),
+                  let value = window["usedPercent"] as? Double, value.isFinite,
+                  (0...100).contains(value) else { return nil }
+            return value
+        }
+        let updatedAt = (response["updatedAt"] as? Double).map { Date(timeIntervalSince1970: $0 / 1000) }
+        let stale = response["stale"] as? Bool == true || updatedAt.map { Date().timeIntervalSince($0) > 900 } == true
+        return QuotaMeterState(fiveHour: used(300), weekly: used(10080), stale: stale)
+    }
+}
+
+enum QuotaMeterColor {
+    // Green at 0%, yellow at 50%, red at 100%. Missing data has no usage color.
+    static func components(_ used: Double?) -> [Double]? {
+        guard let used, used.isFinite else { return nil }
+        let value = max(0, min(100, used))
+        let green = [0.12, 0.75, 0.32], yellow = [1.0, 0.80, 0.10], red = [0.95, 0.18, 0.18]
+        let start = value <= 50 ? green : yellow
+        let end = value <= 50 ? yellow : red
+        let progress = value <= 50 ? value / 50 : (value - 50) / 50
+        return zip(start, end).map { $0 + ($1 - $0) * progress }
+    }
+
+    static func color(_ used: Double?) -> NSColor {
+        guard let rgb = components(used) else { return .secondaryLabelColor }
+        return NSColor(srgbRed: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
+    }
+
+    @MainActor static func image(_ state: QuotaMeterState) -> NSImage {
+        let image = NSImage(size: NSSize(width: 28, height: 20))
+        image.lockFocus()
+        for (letter, value, x) in [("C", state.fiveHour, 1.0), ("P", state.weekly, 15.0)] {
+            (letter as NSString).draw(at: NSPoint(x: x, y: 2), withAttributes: [
+                .font: NSFont.monospacedSystemFont(ofSize: 14, weight: .bold),
+                .foregroundColor: color(state.stale ? nil : value)
+            ])
+        }
+        image.unlockFocus()
+        image.isTemplate = false
+        return image
+    }
+}
+
+@MainActor final class PulseMenuDelegate: NSObject, NSApplicationDelegate {
+    private var item: NSStatusItem?
+    private var timer: Timer?
+    private var fetching = false
+    private var fiveHourItem: NSMenuItem?
+    private var weeklyItem: NSMenuItem?
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        item = NSStatusBar.system.statusItem(withLength: 32)
+        let menu = NSMenu()
+        fiveHourItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        weeklyItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        menu.addItem(fiveHourItem!)
+        menu.addItem(weeklyItem!)
+        menu.addItem(.separator())
+        for entry in [
+            NSMenuItem(title: tr("Refresh usage", "刷新用量"), action: #selector(refreshFromMenu), keyEquivalent: ""),
+            NSMenuItem(title: tr("Setup & help", "安装与帮助"), action: #selector(openHelp), keyEquivalent: ""),
+            NSMenuItem(title: tr("Quit Codex Pulse", "退出 Codex Pulse"), action: #selector(quit), keyEquivalent: "q")
+        ] { entry.target = self; menu.addItem(entry) }
+        item?.menu = menu
+        update(QuotaMeterState())
+        Task { await refreshUsage() }
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            Task { @MainActor in await self?.refreshUsage() }
+        }
+    }
+
+    func applicationWillTerminate(_ notification: Notification) { timer?.invalidate() }
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { false }
+
+    private func update(_ state: QuotaMeterState) {
+        func value(_ used: Double?) -> String { used.map { String(format: "%.0f%%", $0) } ?? "—" }
+        let suffix = state.stale ? tr(" (cached)", "（缓存）") : ""
+        let short = tr("C · 5h used: ", "C · 5 小时已用：") + value(state.fiveHour) + suffix
+        let week = tr("P · Week used: ", "P · 本周已用：") + value(state.weekly) + suffix
+        item?.button?.image = QuotaMeterColor.image(state)
+        item?.button?.toolTip = "Codex Pulse\n" + short + "\n" + week
+        item?.button?.setAccessibilityLabel("Codex Pulse. " + short + ". " + week)
+        fiveHourItem?.title = short
+        weeklyItem?.title = week
+    }
+
+    private func refreshUsage() async {
+        guard !fetching else { return }
+        fetching = true
+        defer { fetching = false }
+        do {
+            var request = URLRequest(url: URL(string: "http://127.0.0.1:43187/api/local/usage")!)
+            request.timeoutInterval = 10
+            request.cachePolicy = .reloadIgnoringLocalCacheData
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw URLError(.badServerResponse) }
+            update(try QuotaMeterState.decode(data))
+        } catch { update(QuotaMeterState()) }
+    }
+
+    @objc private func refreshFromMenu() { Task { await refreshUsage() } }
+    @objc private func openHelp() {
+        NSWorkspace.shared.open(URL(string: "https://github.com/18637168668a-cpu/codex-pulse/blob/main/docs/INSTALL.md")!)
+    }
+    @objc private func quit() { NSApp.terminate(nil) }
 }

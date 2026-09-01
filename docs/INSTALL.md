@@ -12,6 +12,8 @@ Codex must already be installed and signed in with ChatGPT. If it is not detecte
 
 After setup, right-click your desktop → Edit Widgets → Codex Pulse. Placement is a macOS step, not automatic.
 
+When Codex Pulse is running, its menu-bar **C/P** meter shows 5-hour and weekly used quota. Each letter changes from green at 0% through yellow to red at 100%; gray means missing or cached data. This menu has no floating quota window.
+
 ## Update a download
 
 Close Codex Pulse, replace the app in the same Applications folder, reopen it and click **Enable/repair bridge**. Keep the install location unchanged so the login service can find its bundled runtime. When changing from a source install in `~/Applications` to `/Applications`, remove the old bridge and app first to avoid duplicate widgets.

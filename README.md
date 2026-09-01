@@ -21,6 +21,7 @@ I wanted to glance at my desktop and know two things: **how much have I used, an
 Codex Pulse keeps the answer small, readable, and on the desktop.
 
 - **Used, not remaining:** 5-hour and weekly percentages side by side.
+- **CP menu meter:** C represents 5-hour usage and P represents weekly usage; each shifts from green at 0% through yellow to red at 100%. Missing or cached values are gray.
 - **Two reset clocks:** each quota has its own countdown, including days.
 - **Native SwiftUI + WidgetKit:** small and medium widgets; English and Simplified Chinese follow your system language.
 - **Read-only local bridge:** Node.js built-ins only. No Electron, web development server, telemetry, or extra API key.
