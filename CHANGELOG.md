@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3 — clearer Tibo radar typography
+
+- Enlarged the Tibo reset radar title, status label, message, reason and footer text.
+- Kept the CP quota meter colors, countdowns, radar behavior, and read-only boundaries unchanged.
+
 ## 0.1.2 — widget contrast patch
 
 - Improved widget text contrast against the dark gradient background.

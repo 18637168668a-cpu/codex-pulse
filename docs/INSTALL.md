@@ -1,8 +1,8 @@
 # Installation & troubleshooting
 
-## Downloaded prerelease (v0.1.2)
+## Downloaded prerelease (v0.1.3)
 
-[Download the v0.1.2 DMG or ZIP](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.2). This is an ad-hoc signed, unnotarized prerelease. The universal app bundles Node.js and the bridge. Intel installation and clean-machine support remain pending validation.
+[Download the v0.1.3 DMG or ZIP](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.3). This is an ad-hoc signed, unnotarized prerelease. The universal app bundles Node.js and the bridge. Intel installation and clean-machine support remain pending validation.
 
 Move the app to `/Applications` or `~/Applications` before opening it. On first launch, the non-sandboxed companion app asks you to click **Enable/repair bridge**. This user-triggered action installs or repairs the per-user LaunchAgent; the WidgetKit extension remains sandboxed. **Remove local bridge** removes that service while retaining the app. The radar is off by default; use **Enable reset radar** or **Disable reset radar**.
 

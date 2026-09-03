@@ -2,7 +2,7 @@
 
 ## Preview release contract
 
-The v0.1.2 preview is a universal macOS 14+ app bundle. Its downloadable files are named `Codex-Pulse-VERSION-universal-unsigned.dmg` and `.zip`. “Unsigned” means **not Developer ID signed**: the app is ad-hoc signed only so its nested code can be checked locally. It is published as a draft prerelease, and users may need to approve it in macOS security settings.
+The v0.1.3 preview is a universal macOS 14+ app bundle. Its downloadable files are named `Codex-Pulse-VERSION-universal-unsigned.dmg` and `.zip`. “Unsigned” means **not Developer ID signed**: the app is ad-hoc signed only so its nested code can be checked locally. It is published as a draft prerelease, and users may need to approve it in macOS security settings.
 
 The package includes the official Node.js v22.23.2 Darwin arm64 and x64 runtimes merged into one universal executable. The two official tarballs are pinned by SHA-256 in `scripts/fetch-node-runtime.sh`; that script verifies each checksum before merging them with `lipo`. The Node.js license is shipped as `Codex Pulse.app/Contents/Resources/runtime/NODE-LICENSE.txt`.
 
@@ -35,7 +35,7 @@ bash scripts/fetch-node-runtime.sh --output /tmp/codex-pulse-runtime --refresh
 
 ## GitHub draft prerelease
 
-Push a tag in the exact form `vMAJOR.MINOR.PATCH` whose value equals `package.json` (for example `v0.1.2`). The workflow checks out that tagged commit, runs bridge and native tests, validates release hygiene, packages the artifacts, and creates a **draft prerelease**. It uses only pinned actions and the workflow token; it does not receive signing credentials.
+Push a tag in the exact form `vMAJOR.MINOR.PATCH` whose value equals `package.json` (for example `v0.1.3`). The workflow checks out that tagged commit, runs bridge and native tests, validates release hygiene, packages the artifacts, and creates a **draft prerelease**. It uses only pinned actions and the workflow token; it does not receive signing credentials.
 
 `workflow_dispatch` is safe only when run from the release tag itself. It repeats exact-tag validation before it can create a release.
 

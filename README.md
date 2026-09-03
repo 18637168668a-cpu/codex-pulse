@@ -4,7 +4,7 @@
 
 A native macOS desktop widget for **5-hour and weekly usage**, with separate reset countdowns — days included.
 
-[Download v0.1.2](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.2) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
+[Download v0.1.3](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.3) · [简体中文](README.zh-CN.md) · [Install](#quick-start) · [Security](SECURITY.md) · [Contribute](CONTRIBUTING.md)
 
 ![Codex Pulse native widget showing two usage percentages and separate reset countdowns](docs/images/hero-en.png)
 
@@ -34,7 +34,7 @@ If this saves you a few trips to the usage page, a ⭐ helps other Codex users f
 
 **Download, open, enable the bridge, add your widget. No Xcode or Node installation needed.**
 
-[Download v0.1.2 — DMG or ZIP](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.2)
+[Download v0.1.3 — DMG or ZIP](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.3)
 
 > **Unnotarized prerelease:** the `unsigned` downloads have an ad-hoc signature, not an Apple Developer ID signature. macOS may block first launch. Only approve this specific app if you trust the download; see [first-launch guidance](docs/INSTALL.md). Intel and clean-Mac installation still need validation.
 

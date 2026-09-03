@@ -37,7 +37,7 @@ export function createPulseServer({ bridge = new CodexBridge(), social = false, 
     if (request.method !== 'GET') return json(405, { error: 'Read-only service.' });
     let path;
     try { path = new URL(request.url, 'http://localhost').pathname; } catch { return json(400, { error: 'Invalid request.' }); }
-    if (path === '/' || path === '/health') return json(200, { app: 'codex-pulse', version: '0.1.2', readOnly: true, socialEnabled: social });
+    if (path === '/' || path === '/health') return json(200, { app: 'codex-pulse', version: '0.1.3', readOnly: true, socialEnabled: social });
     try {
       if (path === '/api/local/usage') return json(200, await cached('usage', 30000, async () => normalizeUsage(await bridge.rateLimits())));
       if (path === '/api/local/tibo') return json(200, social
