@@ -293,7 +293,7 @@ struct SmallWidgetView: View {
                 Image(systemName: "antenna.radiowaves.left.and.right")
                 Text(payload.signalLabel).lineLimit(1)
             }
-            .font(.system(size: 8, weight: .semibold))
+            .font(.system(size: 9, weight: .semibold))
             .foregroundStyle(.purple.opacity(0.98))
         }
         .padding(12)
@@ -314,7 +314,7 @@ struct MediumWidgetView: View {
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Text("TIBO RESET RADAR")
-                        .font(.system(size: 8, weight: .bold))
+                        .font(.system(size: 9, weight: .bold))
                         .foregroundStyle(WidgetPalette.secondary)
                     Spacer()
                     Circle()
@@ -323,25 +323,25 @@ struct MediumWidgetView: View {
                 }
 
                 Text(payload.signalLabel)
-                    .font(.system(size: 10, weight: .bold))
+                    .font(.system(size: 11, weight: .bold))
                     .foregroundStyle(.purple)
                     .padding(.horizontal, 7)
-                    .padding(.vertical, 4)
+                    .padding(.vertical, 5)
                     .background(.purple.opacity(0.22), in: Capsule())
 
                 Text(payload.signalText)
-                    .font(.system(size: 11, weight: .medium))
+                    .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(WidgetPalette.body)
                     .lineLimit(4)
 
                 Text(payload.signalReason)
-                    .font(.system(size: 8))
+                    .font(.system(size: 9))
                     .foregroundStyle(WidgetPalette.secondary)
                     .lineLimit(3)
 
                 Spacer()
                 Text(PulseText.t("Third-party feed · not official", "第三方信号源 · 非官方"))
-                    .font(.system(size: 7))
+                    .font(.system(size: 8))
                     .foregroundStyle(WidgetPalette.tertiary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
