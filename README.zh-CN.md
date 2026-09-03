@@ -4,7 +4,7 @@
 
 原生 macOS 桌面小组件：并排展示 **5 小时已用量、本周已用量**，分别显示重置倒计时，超过一天明确显示天数。
 
-[下载 v0.1.1](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.1) · [English](README.md) · [安装与排查](docs/INSTALL.md) · [隐私与安全](SECURITY.md)
+[下载 v0.1.2](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.2) · [English](README.md) · [安装与排查](docs/INSTALL.md) · [隐私与安全](SECURITY.md)
 
 ![中文原生组件，两个已用百分比及带天数的重置倒计时](docs/images/medium-zh.png)
 
@@ -27,7 +27,7 @@
 
 **下载 → 打开 → 启用本机服务 → 添加组件。无需另装 Xcode 或 Node。**
 
-[下载 v0.1.1（DMG / ZIP）](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.1)
+[下载 v0.1.2（DMG / ZIP）](https://github.com/matyang-dev/codex-pulse/releases/tag/v0.1.2)
 
 > **这是未公证的预发布版。** 文件名中的 `unsigned` 表示没有 Apple Developer ID 签名，仅有临时签名。macOS 可能阻止首次打开；仅在信任下载来源时按[安装指南](docs/INSTALL.md)批准此应用。Intel 实机和全新 Mac 安装仍待验证。
 

@@ -51,7 +51,7 @@ export class CodexBridge {
     child.once('error', failed);
     child.once('exit', failed);
     this.ready = this.send('initialize', {
-      clientInfo: { name: 'codex-pulse', title: 'Codex Pulse', version: '0.1.1' },
+      clientInfo: { name: 'codex-pulse', title: 'Codex Pulse', version: '0.1.2' },
     }).then(() => {
       child.stdin.write(JSON.stringify({ method: 'initialized' }) + '\n');
     }).catch(error => { this.stop(); throw error; });
