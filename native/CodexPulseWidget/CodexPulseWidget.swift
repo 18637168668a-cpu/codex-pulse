@@ -185,7 +185,7 @@ struct UsageBar: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack(alignment: .leading) {
-                Capsule().fill(.white.opacity(0.09))
+                Capsule().fill(WidgetPalette.track)
                 Capsule()
                     .fill(tint)
                     .frame(width: proxy.size.width * CGFloat(max(0, min(100, value))) / 100)
@@ -194,6 +194,17 @@ struct UsageBar: View {
         }
         .frame(height: 5)
     }
+}
+
+private enum WidgetPalette {
+    // The widget background is always dark, so avoid system primary/secondary
+    // colors that can resolve to near-black when macOS is in light mode.
+    static let primary = Color.white.opacity(0.96)
+    static let secondary = Color.white.opacity(0.72)
+    static let tertiary = Color.white.opacity(0.54)
+    static let body = Color.white.opacity(0.88)
+    static let track = Color.white.opacity(0.14)
+    static let divider = Color.white.opacity(0.18)
 }
 
 enum ResetDuration {
@@ -220,8 +231,8 @@ struct UsageMetric: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
                 .font(.system(size: 9, weight: .semibold))
-                .foregroundStyle(.secondary)
-            Text("\(Text(value.map(String.init) ?? "—").font(.system(size: 28, weight: .bold, design: .rounded)))\(Text(value == nil ? "" : "%").font(.system(size: 12, weight: .bold)).foregroundColor(tint))")
+                .foregroundStyle(WidgetPalette.secondary)
+            Text("\(Text(value.map(String.init) ?? "—").font(.system(size: 28, weight: .bold, design: .rounded)).foregroundStyle(WidgetPalette.primary))\(Text(value == nil ? "" : "%").font(.system(size: 12, weight: .bold)).foregroundStyle(tint))")
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
             UsageBar(value: value ?? 0, tint: value == nil ? .gray : tint)
@@ -242,7 +253,7 @@ struct UsageSummary: View {
                 Text(payload.updatedAt == nil ? PulseText.t("No data", "暂无数据") : (payload.isLive && referenceDate.timeIntervalSince(payload.updatedAt!) < 900 ? PulseText.t("Updated", "已更新") : PulseText.t("Cached", "缓存")))
             }
             .font(.system(size: 9, weight: .bold, design: .rounded))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(WidgetPalette.secondary)
             HStack(alignment: .top, spacing: 10) {
                 UsageMetric(title: PulseText.t("5h used", "5 小时已用"), value: payload.fiveHourUsed, tint: .cyan)
                 UsageMetric(title: PulseText.t("Week used", "本周已用"), value: payload.weeklyUsed, tint: .purple)
@@ -258,7 +269,7 @@ struct UsageSummary: View {
         HStack(spacing: 4) {
             Text(title)
                 .font(.system(size: 8, weight: .medium))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(WidgetPalette.secondary)
                 .fixedSize()
             Spacer(minLength: 0)
             Text(ResetDuration.text(until: reset, from: referenceDate))
@@ -283,7 +294,7 @@ struct SmallWidgetView: View {
                 Text(payload.signalLabel).lineLimit(1)
             }
             .font(.system(size: 8, weight: .semibold))
-            .foregroundStyle(.purple.opacity(0.95))
+            .foregroundStyle(.purple.opacity(0.98))
         }
         .padding(12)
     }
@@ -298,13 +309,13 @@ struct MediumWidgetView: View {
             UsageSummary(payload: payload, referenceDate: referenceDate)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 
-            Divider().overlay(.white.opacity(0.08))
+            Divider().overlay(WidgetPalette.divider)
 
             VStack(alignment: .leading, spacing: 5) {
                 HStack {
                     Text("TIBO RESET RADAR")
                         .font(.system(size: 8, weight: .bold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(WidgetPalette.secondary)
                     Spacer()
                     Circle()
                         .fill(payload.isLive ? Color.cyan : Color.gray)
@@ -316,21 +327,22 @@ struct MediumWidgetView: View {
                     .foregroundStyle(.purple)
                     .padding(.horizontal, 7)
                     .padding(.vertical, 4)
-                    .background(.purple.opacity(0.1), in: Capsule())
+                    .background(.purple.opacity(0.22), in: Capsule())
 
                 Text(payload.signalText)
                     .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(WidgetPalette.body)
                     .lineLimit(4)
 
                 Text(payload.signalReason)
                     .font(.system(size: 8))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(WidgetPalette.secondary)
                     .lineLimit(3)
 
                 Spacer()
                 Text(PulseText.t("Third-party feed · not official", "第三方信号源 · 非官方"))
                     .font(.system(size: 7))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(WidgetPalette.tertiary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
